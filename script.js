@@ -1,19 +1,16 @@
-//Bevan Philip
-//ID: 1001527799
-
 const images = [
-  {file:'image01.jpg',title:'Elephant',description:'The largest land animal on Earth, known for its intelligence, powerful trunk, and strong family bonds.'},
-  {file:'image02.jpg',title:'Tiger',description:'The largest wild cat species, recognized by its orange fur, black stripes, and excellent hunting abilities.'},
-  {file:'image03.jpg',title:'Lion',description:'Known as the king of the jungle, this powerful big cat lives in social groups called prides.'},
-  {file:'image04.jpg',title:'Giraffe',description:'The tallest land animal in the world, using its long neck to reach leaves high in trees.'},
-  {file:'image05.jpg',title:'Zebra',description:'An African mammal recognized by its unique black-and-white stripes, which differ between individuals.'},
-  {file:'image06.jpg',title:'Red Panda',description:'A small, tree-dwelling mammal native to the Himalayas, known for its reddish fur and bushy tail.'},
-  {file:'image07.jpg',title:'Emperor Penguin',description:'The tallest and heaviest penguin species, adapted to survive the extreme cold of Antarctica.'},
-  {file:'image08.jpg',title:'Dolphin',description:'A highly intelligent marine mammal that uses echolocation to navigate and find food underwater.'},
-  {file:'image09.jpg',title:'Gray Wolf',description:'Add a short description of the ninth A social predator that lives in family packs and communicates through howling and body language.'},
-  {file:'image10.jpg',title:'Great Horned Owl',description:'A powerful nocturnal bird of prey known for its sharp talons, excellent hearing, and nearly silent flight.'},
-  {file:'image11.jpg',title:'Red Fox',description:'AA clever and adaptable mammal recognized by its reddish-orange fur, pointed ears, and bushy tail.'},
-  {file:'image12.jpg',title:'Sea Turtle',description:'AA marine reptile that spends most of its life in the ocean and travels long distances to nesting beaches.'}
+  {file:'image01.jpg',title:'Tropical Paradise',description:'Tall palm trees overlook a white sandy beach and crystal-clear turquoise ocean beneath a bright blue sky.'},
+  {file:'image02.jpg',title:'Bird in Nature',description:'A small brown bird rests on a flowering branch surrounded by vibrant green leaves.'},
+  {file:'image03.jpg',title:'Starry Night',description:'Thousands of stars illuminate the night sky above a rugged mountain range.'},
+  {file:'image04.jpg',title:'Hot Air Balloons',description:'Colorful hot air balloons float peacefully above a vast, rocky desert landscape.'},
+  {file:'image05.jpg',title:'Pastel Sunset',description:'Soft pink and purple clouds stretch across the sky, creating a peaceful and colorful atmosphere.'},
+  {file:'image06.jpg',title:'Cherry Blossoms',description:'Delicate pink cherry blossoms decorate tree branches against a clear blue sky.'},
+  {file:'image07.jpg',title:'Pink Rose',description:'A beautiful pink rose blooms with delicate, layered petals against a softly blurred green background.'},
+  {file:'image08.jpg',title:'Misty Mountains',description:'Thick fog covers a rugged mountain landscape filled with rocks, trees, and lush green vegetation.'},
+  {file:'image09.jpg',title:'Underwater Jellyfish',description:'A graceful jellyfish floats through clear blue water, displaying its delicate tentacles.'},
+  {file:'image10.jpg',title:'Hummingbird and Hibiscus',description:'A hummingbird hovers near a vibrant red hibiscus flower, preparing to feed on its nectar.'},
+  {file:'image11.jpg',title:'Orange Roses',description:'Two elegant orange roses bloom among green leaves, displaying soft petals and warm colors.'},
+  {file:'image12.jpg',title:'Water Droplet',description:'A single water droplet hangs above a calm surface, creating beautiful circular ripples.'}
 ];
 const gallery=document.querySelector('#gallery');const viewer=document.querySelector('#viewer');
 images.forEach((item,i)=>{const card=document.createElement('article');card.className='card';const button=document.createElement('button');button.className='image-button';button.setAttribute('aria-label',`Enlarge ${item.title}`);const img=document.createElement('img');img.src=`images/${item.file}`;img.alt=item.description;img.loading='lazy';img.onerror=()=>{img.onerror=null;img.src=`https://placehold.co/700x500/263047/dbe5ff?text=Add+image+${String(i+1).padStart(2,'0')}`};button.append(img);button.addEventListener('click',()=>{document.querySelector('#large').src=img.src;document.querySelector('#large').alt=img.alt;document.querySelector('#viewer-caption').textContent=`${item.title} — ${item.description}`;viewer.showModal()});const info=document.createElement('div');info.className='info';const number=document.createElement('span');number.className='number';number.textContent=`PHOTO ${String(i+1).padStart(2,'0')}`;const title=document.createElement('h2');title.textContent=item.title;const description=document.createElement('p');description.textContent=item.description;info.append(number,title,description);card.append(button,info);gallery.append(card)});
