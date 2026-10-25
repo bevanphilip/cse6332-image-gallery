@@ -1,17 +1,76 @@
-const images = [
-  {file:'image01.jpg',title:'Tropical Paradise',description:'Tall palm trees overlook a white sandy beach and crystal-clear turquoise ocean beneath a bright blue sky.'},
-  {file:'image02.jpg',title:'Bird in Nature',description:'A small brown bird rests on a flowering branch surrounded by vibrant green leaves.'},
-  {file:'image03.jpg',title:'Starry Night',description:'Thousands of stars illuminate the night sky above a rugged mountain range.'},
-  {file:'image04.jpg',title:'Hot Air Balloons',description:'Colorful hot air balloons float peacefully above a vast, rocky desert landscape.'},
-  {file:'image05.jpg',title:'Pastel Sunset',description:'Soft pink and purple clouds stretch across the sky, creating a peaceful and colorful atmosphere.'},
-  {file:'image06.jpg',title:'Cherry Blossoms',description:'Delicate pink cherry blossoms decorate tree branches against a clear blue sky.'},
-  {file:'image07.jpg',title:'Pink Rose',description:'A beautiful pink rose blooms with delicate, layered petals against a softly blurred green background.'},
-  {file:'image08.jpg',title:'Misty Mountains',description:'Thick fog covers a rugged mountain landscape filled with rocks, trees, and lush green vegetation.'},
-  {file:'image09.jpg',title:'Underwater Jellyfish',description:'A graceful jellyfish floats through clear blue water, displaying its delicate tentacles.'},
-  {file:'image10.jpg',title:'Hummingbird and Hibiscus',description:'A hummingbird hovers near a vibrant red hibiscus flower, preparing to feed on its nectar.'},
-  {file:'image11.jpg',title:'Orange Roses',description:'Two elegant orange roses bloom among green leaves, displaying soft petals and warm colors.'},
-  {file:'image12.jpg',title:'Water Droplet',description:'A single water droplet hangs above a calm surface, creating beautiful circular ripples.'}
+const animals = [
+  {file:'animal1.jpg',name:'African Elephant',habitat:'land',region:'African savannas',description:'The largest living land animal uses its versatile trunk to gather food, drink water, and communicate with its herd.'},
+  {file:'animal2.jpg',name:'Bengal Tiger',habitat:'land',region:'Asian forests',description:'This solitary big cat is known for its distinctive stripes, powerful swimming ability, and stealthy hunting.'},
+  {file:'animal3.jpg',name:'African Lion',habitat:'land',region:'African grasslands',description:'Unlike most cats, lions live in social groups called prides and work together to protect their territory.'},
+  {file:'animal4.jpg',name:'Giraffe',habitat:'land',region:'African savannas',description:'The tallest land mammal uses its long neck and prehensile tongue to browse leaves high in the trees.'},
+  {file:'animal5.jpg',name:'Plains Zebra',habitat:'land',region:'African grasslands',description:'Every zebra has a unique stripe pattern. These social grazers often travel in herds for protection.'},
+  {file:'animal6.jpg',name:'Red Panda',habitat:'land',region:'Himalayan forests',description:'This tree-loving mammal uses its bushy tail for balance and warmth and spends much of its time eating bamboo.'},
+  {file:'animal7.jpg',name:'Emperor Penguin',habitat:'air',region:'Antarctica',description:'The largest penguin species survives harsh Antarctic winters through insulation and remarkable group huddling.'},
+  {file:'animal8.jpg',name:'Bottlenose Dolphin',habitat:'water',region:'Temperate and tropical seas',description:'A curious marine mammal that uses echolocation and complex social communication to navigate its ocean home.'},
+  {file:'animal9.jpg',name:'Gray Wolf',habitat:'land',region:'Forests and tundra',description:'Wolves live in family packs and cooperate while raising pups, defending territory, and hunting.'},
+  {file:'animal10.jpg',name:'Great Horned Owl',habitat:'air',region:'North American woodlands',description:'A formidable nocturnal hunter with exceptional hearing, powerful talons, and nearly silent flight.'},
+  {file:'animal11.jpg',name:'Red Fox',habitat:'land',region:'Woodlands and meadows',description:'This adaptable predator uses keen hearing to locate small prey and its fluffy tail for warmth and balance.'},
+  {file:'animal12.jpg',name:'Green Sea Turtle',habitat:'water',region:'Tropical oceans',description:'An ocean traveler that grazes on seagrass as an adult and returns to nesting beaches to lay eggs.'}
 ];
-const gallery=document.querySelector('#gallery');const viewer=document.querySelector('#viewer');
-images.forEach((item,i)=>{const card=document.createElement('article');card.className='card';const button=document.createElement('button');button.className='image-button';button.setAttribute('aria-label',`Enlarge ${item.title}`);const img=document.createElement('img');img.src=`images/${item.file}`;img.alt=item.description;img.loading='lazy';img.onerror=()=>{img.onerror=null;img.src=`https://placehold.co/700x500/263047/dbe5ff?text=Add+image+${String(i+1).padStart(2,'0')}`};button.append(img);button.addEventListener('click',()=>{document.querySelector('#large').src=img.src;document.querySelector('#large').alt=img.alt;document.querySelector('#viewer-caption').textContent=`${item.title} — ${item.description}`;viewer.showModal()});const info=document.createElement('div');info.className='info';const number=document.createElement('span');number.className='number';number.textContent=`PHOTO ${String(i+1).padStart(2,'0')}`;const title=document.createElement('h2');title.textContent=item.title;const description=document.createElement('p');description.textContent=item.description;info.append(number,title,description);card.append(button,info);gallery.append(card)});
-document.querySelector('#close').addEventListener('click',()=>viewer.close());viewer.addEventListener('click',e=>{if(e.target===viewer)viewer.close()});
+
+const cards = document.querySelector('#cards');
+const count = document.querySelector('#result-count');
+const viewer = document.querySelector('#viewer');
+const viewerImage = document.querySelector('#viewer-image');
+const viewerTitle = document.querySelector('#viewer-title');
+const viewerDescription = document.querySelector('#viewer-description');
+
+function openAnimal(animal) {
+  viewerImage.src = `images/${animal.file}`;
+  viewerImage.alt = animal.name;
+  viewerTitle.textContent = animal.name;
+  viewerDescription.textContent = animal.description;
+  viewer.showModal();
+}
+
+function renderAnimals(filter = 'all') {
+  const visible = animals.filter(animal => filter === 'all' || animal.habitat === filter);
+  cards.replaceChildren();
+  count.textContent = `${visible.length} ${visible.length === 1 ? 'animal' : 'animals'}`;
+  visible.forEach(animal => {
+    const card = document.createElement('article');
+    card.className = 'animal-card';
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'photo-button';
+    button.setAttribute('aria-label', `Enlarge photo of ${animal.name}`);
+    const photo = document.createElement('img');
+    photo.src = `images/${animal.file}`;
+    photo.alt = animal.name;
+    photo.loading = 'lazy';
+    button.append(photo);
+    button.addEventListener('click', () => openAnimal(animal));
+    const body = document.createElement('div');
+    body.className = 'card-body';
+    const region = document.createElement('span');
+    region.className = 'card-kicker';
+    region.textContent = animal.region;
+    const heading = document.createElement('h3');
+    heading.textContent = animal.name;
+    const description = document.createElement('p');
+    description.textContent = animal.description;
+    body.append(region, heading, description);
+    card.append(button, body);
+    cards.append(card);
+  });
+}
+
+document.querySelectorAll('.filter').forEach(button => {
+  button.addEventListener('click', () => {
+    document.querySelectorAll('.filter').forEach(item => {
+      const selected = item === button;
+      item.classList.toggle('active', selected);
+      item.setAttribute('aria-pressed', String(selected));
+    });
+    renderAnimals(button.dataset.filter);
+  });
+});
+
+document.querySelector('#close-viewer').addEventListener('click', () => viewer.close());
+viewer.addEventListener('click', event => { if (event.target === viewer) viewer.close(); });
+renderAnimals();

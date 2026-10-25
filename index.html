@@ -1,34 +1,42 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="CSE 6332 image gallery project">
-  <title>Visual Stories | CSE 6332</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Wild Atlas: explore 12 remarkable animals and the habitats they call home.">
+  <title>Wild Atlas | Stories from the Wild</title>
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
 </head>
 <body>
-  <!-- Page heading -->
+  <a class="skip-link" href="#gallery">Skip to gallery</a>
   <header class="site-header">
-    <p class="eyebrow">CSE 6332</p>
-    <h1>Image Gallery</h1>
-    <p class="intro">A curated gallery of twelve images and the stories behind them.</p>
-    <p id="count" class="count" aria-live="polite"></p>
+    <a class="brand" href="#top" aria-label="Wild Atlas home"><span class="brand-mark">✳</span> WILD ATLAS</a>
+    <nav aria-label="Main navigation"><a href="#gallery">Explore</a><a href="#mission">Our mission</a></nav>
   </header>
-
-  <!-- Image cards are added by script.js -->
-  <main class="main-content">
-    <section id="gallery" class="gallery" aria-label="Image gallery"></section>
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">A FIELD GUIDE TO THE EXTRAORDINARY</p>
+        <h1 id="hero-title">The wild is <em>worth</em> discovering.</h1>
+        <p>From the savanna to the deep blue sea, meet the animals that make our planet remarkable. Twelve portraits. Twelve stories. One extraordinary world.</p>
+        <a class="cta" href="#gallery">Explore the collection <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="hero-photo"><img src="images/animal1.jpg" alt="Elephant in its natural habitat"><span>01 / 12 — THE ELEPHANT</span></div>
+    </section>
+    <section id="gallery" class="collection" aria-labelledby="gallery-title">
+      <div class="section-head"><div><p class="eyebrow">THE COLLECTION</p><h2 id="gallery-title">Meet the wild ones.</h2><p>Explore by habitat, or discover them all.</p></div><span id="result-count" aria-live="polite">12 animals</span></div>
+      <div class="filters" role="group" aria-label="Filter animals by habitat">
+        <button class="filter active" type="button" data-filter="all" aria-pressed="true">All animals</button>
+        <button class="filter" type="button" data-filter="land" aria-pressed="false">On land</button>
+        <button class="filter" type="button" data-filter="air" aria-pressed="false">Birdlife</button>
+        <button class="filter" type="button" data-filter="water" aria-pressed="false">In the water</button>
+      </div>
+      <div id="cards" class="gallery-grid"></div>
+    </section>
+    <section id="mission" class="mission"><p class="eyebrow">A NOTE FROM WILD ATLAS</p><h2>Curiosity inspires care.</h2><p>Every animal has a role in the living world. This gallery celebrates their diversity and invites us to learn more about the habitats they depend on.</p></section>
   </main>
-
-  <!-- Enlarged image viewer -->
-  <dialog id="viewer" class="viewer" aria-label="Image viewer">
-    <button id="close" class="viewer-close" type="button" aria-label="Close image viewer">&times;</button>
-    <img id="large" class="viewer-image" alt="">
-    <p id="viewer-caption" class="viewer-caption"></p>
-  </dialog>
-
-  <footer class="site-footer">Image Gallery · CSE 6332</footer>
+  <footer class="site-footer"><span>✳ WILD ATLAS</span><span>Made for curious minds · CSE 6332</span><a href="#top">Back to top ↑</a></footer>
+  <dialog id="viewer" class="viewer" aria-label="Expanded animal photograph"><button type="button" id="close-viewer" class="viewer-close" aria-label="Close image">×</button><img id="viewer-image" alt=""><div class="viewer-text"><h2 id="viewer-title"></h2><p id="viewer-description"></p></div></dialog>
 </body>
 </html>
